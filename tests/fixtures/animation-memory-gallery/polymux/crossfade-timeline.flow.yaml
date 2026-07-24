@@ -1,0 +1,19 @@
+version: 1
+platforms: [web]
+baseUrl: http://127.0.0.1:4190
+timeoutMs: 2000
+name: Content crossfade timeline memory
+description: Outgoing and incoming content must not become fully opaque together.
+
+steps:
+  - launch: { app: animation-memory-gallery }
+  - clock: { action: install }
+  - clock: { action: pause, ms: 1893456000000 }
+  - navigate: /scenario/crossfade
+  - activate: { role: button, name: Start animation }
+  - clock: { action: advance, ms: 120 }
+  - expect: { target: { role: status }, text: "Animation midpoint" }
+  - visual: { name: midpoint-frame, target: { css: ".crossfade-panel" }, threshold: 0.005 }
+  - clock: { action: advance, ms: 180 }
+  - expect: { target: { role: status }, text: "Animation complete" }
+  - visual: { name: final-frame, target: { css: ".crossfade-panel" }, threshold: 0.005 }

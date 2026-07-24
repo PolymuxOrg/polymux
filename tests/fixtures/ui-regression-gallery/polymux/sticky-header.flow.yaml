@@ -1,0 +1,12 @@
+version: 1
+name: Sticky table header remains visible while scrolling
+description: Regression category - scroll positioning.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - navigate: /scenario/sticky-header
+  - scroll: { target: { id: scroll-panel }, y: 500 }
+  - visual: { name: sticky-scrolled, target: { id: scroll-panel }, threshold: 0.005 }

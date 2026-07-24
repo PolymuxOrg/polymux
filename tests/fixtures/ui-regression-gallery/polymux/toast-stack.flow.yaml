@@ -1,0 +1,13 @@
+version: 1
+name: Concurrent toasts stack without overlapping
+description: Regression category - layered animation.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - navigate: /scenario/toast-stack
+  - activate: { role: button, name: Add notification }
+  - activate: { role: button, name: Add notification }
+  - visual: { name: toast-stack, target: { css: "#stage" }, threshold: 0.005 }

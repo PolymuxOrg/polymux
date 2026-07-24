@@ -1,0 +1,13 @@
+version: 1
+name: Sortable table promotes the highest score first
+description: Regression category - data table.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - navigate: /scenario/table-sort
+  - activate: { role: button, name: Sort by score }
+  - expect: { text: "First: Ada", timeoutMs: 1200 }
+  - screenshot: sorted-table

@@ -1,0 +1,13 @@
+version: 1
+name: Carousel advances exactly one complete slide
+description: Regression category - transform animation.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - navigate: /scenario/carousel-slide
+  - activate: { role: button, name: Next slide }
+  - wait: 500
+  - visual: { name: second-slide, target: { css: "#stage" }, threshold: 0.005 }

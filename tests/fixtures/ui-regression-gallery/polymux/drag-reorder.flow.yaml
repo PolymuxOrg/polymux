@@ -1,0 +1,13 @@
+version: 1
+name: Drag and drop persists the intended list order
+description: Regression category - drag and drop.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - navigate: /scenario/drag-reorder
+  - drag: { from: { id: item-a }, to: { id: item-c } }
+  - expect: { text: "Order: B,C,A", timeoutMs: 1200 }
+  - screenshot: reordered-list

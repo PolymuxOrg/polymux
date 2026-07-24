@@ -1,0 +1,13 @@
+version: 1
+name: Tab activation displays the corresponding panel
+description: Regression category - tabs.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - navigate: /scenario/tabs-panel
+  - activate: { role: tab, name: Analytics }
+  - expect: { target: { role: tabpanel }, text: "Analytics chart", timeoutMs: 1200 }
+  - screenshot: analytics-tab

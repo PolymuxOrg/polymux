@@ -1,0 +1,49 @@
+{
+  "name": "polymux",
+  "version": "0.0.0",
+  "private": false,
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "polymux": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "schema",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PolymuxOrg/polymux.git",
+    "directory": "apps/cli"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "check": "tsc -b --pretty false",
+    "prepack": "node ../../scripts/package-legal.mjs prepare",
+    "postpack": "node ../../scripts/package-legal.mjs clean"
+  },
+  "dependencies": {
+    "@napi-rs/keyring": "1.1.3",
+    "@polymux/adapter-appium": "0.0.0",
+    "@polymux/adapter-linux": "0.0.0",
+    "@polymux/adapter-web": "0.0.0",
+    "@polymux/core": "0.0.0",
+    "@polymux/protocol": "0.0.0",
+    "@polymux/runner": "0.0.0",
+    "@polymux/test-gates": "0.0.0",
+    "commander": "14.0.0",
+    "posthog-node": "5.46.0",
+    "yaml": "2.9.0"
+  }
+}

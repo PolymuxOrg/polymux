@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://polymux.dev/schemas/config-v1.schema.json",
+  "title": "Polymux project configuration",
+  "description": "Configuration for a Polymux project.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version"],
+  "properties": {
+    "version": {
+      "description": "Polymux project configuration format version.",
+      "const": 1
+    },
+    "app": {
+      "description": "Application settings shared by Polymux commands.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "url": {
+          "description": "Default HTTP or HTTPS URL for the application.",
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://"
+        }
+      }
+    },
+    "crawl": {
+      "description": "Deterministic UI discovery settings. Concurrency is selected automatically.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "browser": {
+          "description": "Browser engine used for crawling.",
+          "type": "string",
+          "enum": ["chromium", "firefox", "webkit"],
+          "default": "chromium"
+        },
+        "maxPages": {
+          "description": "Maximum number of unique pages to inspect.",
+          "type": "integer",
+          "minimum": 1,
+          "default": 50
+        },
+        "maxDepth": {
+          "description": "Maximum link depth from the starting URL.",
+          "type": "integer",
+          "minimum": 0,
+          "default": 4
+        },
+        "replays": {
+          "description": "Identical observations required before a page is accepted.",
+          "type": "integer",
+          "minimum": 1,
+          "default": 3
+        },
+        "timeoutMs": {
+          "description": "Maximum time in milliseconds for each page observation.",
+          "type": "integer",
+          "minimum": 1,
+          "default": 10000
+        }
+      }
+    }
+  }
+}

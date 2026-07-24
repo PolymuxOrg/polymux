@@ -1,0 +1,12 @@
+version: 1
+name: Keyboard focus remains visibly discoverable
+description: Regression category - keyboard accessibility.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - navigate: /scenario/focus-ring
+  - focus: { role: button, name: "Primary action", exact: true }
+  - visual: { name: keyboard-focus, target: { css: "#stage" }, threshold: 0.005 }

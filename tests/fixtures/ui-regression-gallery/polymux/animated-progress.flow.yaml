@@ -1,0 +1,12 @@
+version: 1
+name: Animated progress reaches the correct timed state
+description: Regression category - animation timing.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - navigate: /scenario/animated-progress
+  - wait: 1500
+  - visual: { name: timed-progress, target: { css: "#stage" }, threshold: 0.005 }

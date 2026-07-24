@@ -1,0 +1,13 @@
+version: 1
+name: Virtual list renders later items after scrolling
+description: Regression category - virtualization.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - navigate: /scenario/virtual-scroll
+  - scroll: { target: { id: virtual-list }, y: 700 }
+  - expect: { text: "Item 20", timeoutMs: 1200 }
+  - screenshot: virtualized-items

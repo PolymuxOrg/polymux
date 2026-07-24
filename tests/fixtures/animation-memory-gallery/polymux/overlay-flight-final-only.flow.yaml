@@ -1,0 +1,16 @@
+version: 1
+platforms: [web]
+baseUrl: http://127.0.0.1:4190
+timeoutMs: 2000
+name: Overlay flight final frame only
+description: Control showing that the accidental midpoint defect has the same final frame.
+
+steps:
+  - launch: { app: animation-memory-gallery }
+  - clock: { action: install }
+  - clock: { action: pause, ms: 1893456000000 }
+  - navigate: /scenario/overlay-flight
+  - activate: { role: button, name: Start animation }
+  - clock: { action: advance, ms: 300 }
+  - expect: { target: { role: status }, text: "Animation complete" }
+  - visual: { name: final-frame, target: { css: ".animation-canvas" }, threshold: 0.005 }

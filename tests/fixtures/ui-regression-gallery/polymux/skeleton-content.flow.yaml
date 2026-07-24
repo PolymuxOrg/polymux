@@ -1,0 +1,14 @@
+version: 1
+name: Skeleton loader resolves into meaningful content
+description: Regression category - async state.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - clock: { action: install }
+  - navigate: /scenario/skeleton-content
+  - clock: { action: advance, ms: 900 }
+  - expect: { text: "Dashboard ready", timeoutMs: 1200 }
+  - screenshot: loaded-dashboard

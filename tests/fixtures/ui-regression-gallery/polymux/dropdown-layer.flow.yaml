@@ -1,0 +1,12 @@
+version: 1
+name: Dropdown menu renders above adjacent content
+description: Regression category - stacking context.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - navigate: /scenario/dropdown-layer
+  - activate: { role: button, name: Open actions }
+  - visual: { name: dropdown-layer, target: { css: "#stage" }, threshold: 0.005 }

@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://polymux.com/schemas/fixture-v1.schema.json",
+  "title": "Polymux Fixture Protocol v1",
+  "$defs": {
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["flow", "flowRunId", "instance", "seed", "actors"],
+      "properties": {
+        "flow": { "type": "string", "minLength": 1 },
+        "flowRunId": { "type": "string", "minLength": 1 },
+        "instance": { "type": "integer", "minimum": 1 },
+        "seed": { "type": "string", "minLength": 1 },
+        "actors": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol", "id", "method"],
+      "properties": {
+        "protocol": { "const": "polymux.fixture/v1" },
+        "id": { "type": "string", "minLength": 1 },
+        "method": { "enum": ["health", "create", "receive", "destroy"] },
+        "fixture": { "type": "string", "minLength": 1 },
+        "fixtureType": { "type": "string", "minLength": 1 },
+        "handle": { "type": "string", "minLength": 1 },
+        "context": { "$ref": "#/$defs/context" },
+        "timeoutMs": { "type": "number", "exclusiveMinimum": 0 },
+        "input": {}
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "method": { "const": "create" } } },
+          "then": { "required": ["fixture", "fixtureType", "context"] }
+        },
+        {
+          "if": { "properties": { "method": { "const": "receive" } } },
+          "then": { "required": ["fixture", "fixtureType", "handle", "context", "timeoutMs"] }
+        },
+        {
+          "if": { "properties": { "method": { "const": "destroy" } } },
+          "then": { "required": ["fixture", "fixtureType", "handle", "context"] }
+        }
+      ]
+    },
+    "resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["handle"],
+      "properties": {
+        "handle": { "type": "string", "minLength": 1 },
+        "values": { "type": "object" },
+        "secrets": { "type": "object" },
+        "auth": {}
+      }
+    },
+    "success": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol", "id", "ok"],
+      "properties": {
+        "protocol": { "const": "polymux.fixture/v1" },
+        "id": { "type": "string", "minLength": 1 },
+        "ok": { "const": true },
+        "result": { "$ref": "#/$defs/resource" }
+      }
+    },
+    "failure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol", "id", "ok", "error"],
+      "properties": {
+        "protocol": { "const": "polymux.fixture/v1" },
+        "id": { "type": "string", "minLength": 1 },
+        "ok": { "const": false },
+        "error": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["code", "message"],
+          "properties": {
+            "code": { "type": "string", "minLength": 1 },
+            "message": { "type": "string", "minLength": 1 },
+            "retryable": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  },
+  "oneOf": [
+    { "$ref": "#/$defs/request" },
+    { "$ref": "#/$defs/success" },
+    { "$ref": "#/$defs/failure" }
+  ]
+}

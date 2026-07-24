@@ -1,0 +1,9 @@
+{
+  "name": "polymux-animation-memory-gallery",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node generate.mjs",
+    "start": "node server.mjs"
+  }
+}

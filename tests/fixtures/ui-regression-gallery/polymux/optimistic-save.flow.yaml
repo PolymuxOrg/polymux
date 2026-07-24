@@ -1,0 +1,16 @@
+version: 1
+name: Optimistic save settles into a confirmed state
+description: Regression category - optimistic UI.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - clock: { action: install }
+  - navigate: /scenario/optimistic-save
+  - activate: { role: button, name: Save changes }
+  - expect: { target: { role: status }, text: Saving }
+  - clock: { action: advance, ms: 700 }
+  - expect: { target: { role: status }, text: Saved, timeoutMs: 1200 }
+  - screenshot: saved-state

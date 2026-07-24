@@ -1,0 +1,38 @@
+{
+  "name": "polymux-workspace",
+  "version": "0.0.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "packages/adapters/*"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "check": "tsc -b --pretty false",
+    "clean": "tsc -b --clean",
+    "polymux": "tsx apps/cli/src/index.ts",
+    "test": "npm run build && vitest run --exclude 'tests/*.e2e.test.ts'",
+    "test:e2e": "npm run build && vitest run tests/checkout-app.e2e.test.ts tests/ui-regression-gallery.e2e.test.ts tests/animation-memory.e2e.test.ts tests/web-crawl.e2e.test.ts",
+    "test:providers:live": "npm run build && vitest run tests/live-providers.test.ts",
+    "test:mailpit": "npm run build && vitest run tests/mailpit.e2e.test.ts",
+    "test:ui-regressions": "npm run build && vitest run tests/ui-regression-gallery.e2e.test.ts",
+    "test:animation-memory": "npm run build && vitest run tests/animation-memory.e2e.test.ts",
+    "release:version": "node scripts/version-packages.mjs",
+    "release:check": "node scripts/check-release.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "24.0.13",
+    "tsx": "4.20.3",
+    "typescript": "5.8.3",
+    "vitest": "3.2.7"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "overrides": {
+    "uuid": "11.1.1"
+  }
+}

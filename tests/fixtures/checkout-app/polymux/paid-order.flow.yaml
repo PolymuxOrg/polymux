@@ -1,0 +1,63 @@
+version: 1
+name: Checkout creates a paid order
+description: Verifies that checkout creates a paid order in the backend.
+platforms: [web]
+baseUrl: http://127.0.0.1:4173
+timeoutMs: 5000
+
+steps:
+  - launch:
+      app: checkout
+
+  - navigate: /checkout
+
+  - enter:
+      target:
+        label: Email
+        alternatives:
+          - css: input[name="email"]
+      value: buyer@example.com
+
+  - enter:
+      target:
+        label: Card number
+        alternatives:
+          - css: input[name="card"]
+      value: "4242424242424242"
+
+  - activate:
+      role: button
+      name: Pay now
+      exact: true
+      alternatives:
+        - testId: pay
+
+  - stabilize:
+      timeoutMs: 3000
+      intervalMs: 60
+
+  - expect:
+      target:
+        role: status
+        alternatives:
+          - text: Order confirmed
+      state: visible
+
+  - request:
+      method: GET
+      url: /api/orders/latest
+      expect:
+        status: 200
+        json:
+          email: buyer@example.com
+          status: paid
+
+  - request:
+      method: GET
+      url: /api/session
+      expect:
+        status: 200
+        json:
+          authenticated: true
+
+  - screenshot: checkout-confirmed

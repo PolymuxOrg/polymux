@@ -1,0 +1,16 @@
+node_modules/
+.vercel/
+.env
+.env.*
+!.env.example
+.DS_Store
+dist/
+build/
+.svelte-kit/
+coverage/
+test-results/
+playwright-report/
+artifacts/
+.polymux/
+*.log
+*.tsbuildinfo

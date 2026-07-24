@@ -1,0 +1,12 @@
+version: 1
+name: Animated chart reaches the correct final geometry
+description: Regression category - data visualization animation.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - navigate: /scenario/chart-animation
+  - wait: 1700
+  - visual: { name: chart-final, target: { css: "#stage" }, threshold: 0.005 }

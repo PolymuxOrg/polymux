@@ -1,0 +1,13 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/protocol" },
+    { "path": "packages/core" },
+    { "path": "packages/test-gates" },
+    { "path": "packages/adapters/web" },
+    { "path": "packages/adapters/appium" },
+    { "path": "packages/adapters/linux" },
+    { "path": "apps/runner" },
+    { "path": "apps/cli" }
+  ]
+}

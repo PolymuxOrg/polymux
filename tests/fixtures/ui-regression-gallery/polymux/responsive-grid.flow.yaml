@@ -1,0 +1,11 @@
+version: 1
+name: Narrow card grid stays within its container
+description: Regression category - responsive layout.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - navigate: /scenario/responsive-grid
+  - visual: { name: narrow-grid, target: { css: ".grid" }, threshold: 0.005 }

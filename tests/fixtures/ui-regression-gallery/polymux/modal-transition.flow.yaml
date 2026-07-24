@@ -1,0 +1,13 @@
+version: 1
+name: Modal transition finishes centered and unobscured
+description: Regression category - overlay animation.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - navigate: /scenario/modal-transition
+  - activate: { role: button, name: Open modal }
+  - wait: 350
+  - visual: { name: modal-open, target: { css: "#stage" }, threshold: 0.005 }

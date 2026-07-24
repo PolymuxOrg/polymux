@@ -1,0 +1,14 @@
+version: 1
+name: Invalid form submission exposes an accessible error
+description: Regression category - form validation.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - navigate: /scenario/form-validation
+  - enter: { target: { label: Email }, value: not-an-email }
+  - activate: { role: button, name: Create account }
+  - expect: { target: { role: alert }, text: "Enter a valid email", timeoutMs: 1200 }
+  - screenshot: validation-error

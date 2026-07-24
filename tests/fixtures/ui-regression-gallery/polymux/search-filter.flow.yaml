@@ -1,0 +1,14 @@
+version: 1
+name: Search filtering leaves only matching results
+description: Regression category - live filtering.
+platforms: [web]
+baseUrl: http://127.0.0.1:4180
+timeoutMs: 2000
+
+steps:
+  - launch: { app: regression-gallery }
+  - navigate: /scenario/search-filter
+  - enter: { target: { label: Search }, value: gamma }
+  - expect: { target: { css: ".result" }, count: 1, timeoutMs: 1200 }
+  - expect: { text: Gamma }
+  - screenshot: filtered-results

@@ -1,0 +1,15 @@
+version: 1
+name: Linux AT-SPI opens help search
+platforms: [linux]
+steps:
+  - launch: yelp
+  - expect:
+      target:
+        role: document web
+        name: Ubuntu Desktop Guide
+      state: visible
+  - activate:
+      role: button
+      name: Find
+  - wait: 500
+  - screenshot: help-search-open
